@@ -1,29 +1,16 @@
-﻿# [micsensor](https://github.com/litfe/micsensor) 
+﻿# [enmic](https://github.com/lite-life/enmic) 
 
 [![sites](litelife/litelife.png)](http://www.litelife.cc)
 
-试音传感器，通过语音分析完成相应控制
+#### qitas@qitas.cn -- [GitHub](https://github.com/lite-life/litelife)
 
-#### 关于[litelife](https://github.com/lite-life/litelife)可访问 www.litelife.cc
+## [简介](https://github.com/lite-life/enmic/wiki) 
 
----
+麦克风的拾音控制组件，包括相应的硬件实现和软件功能组件，简单的语音控制逻辑
 
-## [简介](https://github.com/lite-life/micsensor/wiki) 
+### [组成](litelife/) 
 
-用于试音处理
+- [docs](docs/) 
+- [projects](projects/) 
 
-## [组成](https://github.com/lite-life/micsensor/wiki) 
-
-#### [docs](https://github.com/lite-life/micsensor/docs) 
-
-包括一些器件的datasheet
-
-#### [code](https://github.com/lite-life/micsensor/code) 
-
-包括一些开源的项目文件
-
----
-
-### www.litelife.cc   
-### qitas@qitas.cn
-### 2018-12-4
+#### [灯光参考工程](projects/colorchord.md) 
