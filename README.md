@@ -10,7 +10,6 @@
 
 ### [组成](litelife/) 
 
-- [docs](docs/) 
-- [projects](projects/) 
-
-#### [灯光参考工程](projects/colorchord.md) 
+- [文档](docs/) 
+- [资源](src/) 
+- [工程](projects/) 
