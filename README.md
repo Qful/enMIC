@@ -1,20 +1,15 @@
-﻿# [Mic](https://github.com/Qful/Mic) 
+﻿# [mic](https://github.com/Qful/mic) 
 [![sites](Qful/Qful.png)](http://www.Qful.net)
-## [Q简介](https://github.com/Qful/Mic) 
+## [Q简介](https://github.com/Qful/mic) 
 
-麦克风的拾音控制组件，包括相应的硬件实现和软件功能组件，简单的语音控制逻辑
+麦克风拾音输入组件，包括软硬件方案，便于其他工程整个资源
 
 - [USB输入](USB/)
 
-### [Q工程](https://github.com/Qful/Mic)
 
-- [文档](docs/)
-- [资源](src/)
-- [工程](project/)
+### [Q资源](https://github.com/Qful/mic)
 
-### [Q资源](https://github.com/Qful/Mic)
-
-- [Q软件](https://github.com/OS-Q)
+- [Q系统](https://github.com/OS-Q)
 - [Q硬件](https://github.com/sochub)
 - [Q智慧](https://github.com/tfzoo)
 - [Q品质](https://github.com/qitas)
