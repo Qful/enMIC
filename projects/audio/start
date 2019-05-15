@@ -1,0 +1,27 @@
+#!/bin/sh
+
+/cx/cxdish fw-version
+/cx/cxdish get-mode
+
+sleep 5
+
+ESmode=`i2cget -y 0 0x13 0x00`
+if [ $ESmode -eq 0x03 ]; then
+	echo "ES7243 IIC set."
+else
+	i2cset -y 0 0x13 0x00 0x03 i
+fi
+
+
+ps |grep ./caf_thin_client | grep -v grep
+if [ $? -eq 0 ]; then 
+	echo "caf run set."
+else 
+	/cx/caf_thin_client &
+	sleep 1
+fi
+
+killall arecord
+killall aplay
+amixer sset Master 55
+

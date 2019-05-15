@@ -1,0 +1,210 @@
+#!/bin/sh
+
+
+
+
+file="/cx/caf_thin_client"
+
+if [ -f "$file" ] ; then
+	echo "now with test SD ."
+else
+	s kwd stop
+fi
+
+
+
+ESmode=`i2cget -y 0 0x13 0x00`
+if [ $ESmode -eq 0x01 ]; then
+	echo "ES7243 IIC set."
+else
+	i2cset -y 0 0x13 0x00 0x01 i
+fi
+
+
+ps |grep caf_thin_client | grep -v grep
+if [ $? -eq 0 ]; then 
+	echo "caf run set."
+else 
+	caf_thin_client &
+	sleep 1
+fi
+
+
+amixer sset Master 56
+echo "amixer sset Master 56."
+#多重启几次看看ref还在不在
+
+file="/tmp/anheqiao.wav"
+
+if [ -f "$file" ] ; then
+	echo "$file found."
+else
+	cd /tmp
+	wget http://somebody.oss-cn-shenzhen.aliyuncs.com/sounds/anheqiao.wav 
+fi
+# 播放本地音乐
+amixer sset 'Speaker Function' 'headset-spk'
+aplay /tmp/anheqiao.wav &
+# CX20921录音
+arecord -D hw:1,0 -r 16000 -f S16_LE -c 1 /tmp/test_CX_anheqiao.wav &
+sleep 10
+killall aplay
+killall arecord
+sleep 1
+# 观察录音效果
+amixer sset 'Speaker Function' 'headset-spk'
+aplay /tmp/test_CX_anheqiao.wav
+
+
+
+
+
+
+amixer sset Master 56
+
+file="/tmp/fade1.wav"
+if [ -f "$file" ] ; then
+	echo "$file found."
+else
+	cd /tmp
+	wget http://somebody.oss-cn-shenzhen.aliyuncs.com/sounds/fade1.wav
+fi
+
+amixer sset 'Speaker Function' 'headset-spk'
+aplay /tmp/fade1.wav &
+arecord -D hw:1,0 -r 16000 -f S16_LE -c 1 /tmp/test_CX_fade1.wav &
+sleep 10
+killall aplay
+killall arecord
+sleep 1
+# 观察录音效果
+amixer sset 'Speaker Function' 'headset-spk'
+aplay /tmp/test_CX_fade1.wav
+
+
+amixer sset Master 56
+file="/tmp/fade2.wav"
+if [ -f "$file" ] ; then
+	echo "$file found."
+else
+	cd /tmp
+	wget http://somebody.oss-cn-shenzhen.aliyuncs.com/sounds/fade2.wav
+fi
+amixer sset 'Speaker Function' 'headset-spk'
+aplay /tmp/fade2.wav &
+arecord -D hw:1,0 -r 16000 -f S16_LE -c 1 /tmp/test_CX_fade2.wav &
+sleep 10
+killall aplay
+killall arecord
+sleep 1
+# 观察录音效果
+amixer sset 'Speaker Function' 'headset-spk'
+aplay /tmp/test_CX_fade2.wav
+
+
+
+
+amixer sset Master 56
+
+file="/tmp/ShanghaiWasLit.wav"
+if [ -f "$file" ] ; then
+	echo "$file found."
+else
+	cd /tmp
+	wget http://somebody.oss-cn-shenzhen.aliyuncs.com/sounds/ShanghaiWasLit.wav
+fi
+amixer sset 'Speaker Function' 'headset-spk'
+aplay /tmp/ShanghaiWasLit.wav &
+arecord -D hw:1,0 -r 16000 -f S16_LE -c 1 /tmp/test_CX_ShanghaiWasLit.wav &
+sleep 10
+killall aplay
+killall arecord
+sleep 1
+# 观察录音效果
+amixer sset 'Speaker Function' 'headset-spk'
+aplay /tmp/test_CX_ShanghaiWasLit.wav
+
+
+amixer sset Master 56
+
+file="/tmp/intro.wav"
+if [ -f "$file" ] ; then
+	echo "$file found."
+else
+	cd /tmp
+	wget http://somebody.oss-cn-shenzhen.aliyuncs.com/sounds/intro.wav
+fi
+amixer sset 'Speaker Function' 'headset-spk'
+aplay /tmp/intro.wav &
+arecord -D hw:1,0 -r 16000 -f S16_LE -c 1 /tmp/test_CX_intro.wav &
+sleep 10
+killall aplay
+killall arecord
+sleep 1
+# 观察录音效果
+amixer sset 'Speaker Function' 'headset-spk'
+aplay /tmp/test_CX_intro.wav
+
+
+amixer sset Master 56
+
+file="/tmp/lixiangsanxun.wav"
+if [ -f "$file" ] ; then
+	echo "$file found."
+else
+	cd /tmp
+	wget http://somebody.oss-cn-shenzhen.aliyuncs.com/sounds/lixiangsanxun.wav
+fi
+amixer sset 'Speaker Function' 'headset-spk'
+aplay /tmp/lixiangsanxun.wav &
+arecord -D hw:1,0 -r 16000 -f S16_LE -c 1 /tmp/test_CX_lixiangsanxun.wav &
+sleep 10
+killall aplay
+killall arecord
+sleep 1
+# 观察录音效果
+amixer sset 'Speaker Function' 'headset-spk'
+aplay /tmp/test_CX_lixiangsanxun.wav
+
+
+amixer sset Master 56
+
+file="/tmp/loser.wav"
+if [ -f "$file" ] ; then
+	echo "$file found."
+else
+	cd /tmp
+	wget http://somebody.oss-cn-shenzhen.aliyuncs.com/sounds/loser.wav
+fi
+amixer sset 'Speaker Function' 'headset-spk'
+aplay /tmp/loser.wav &
+arecord -D hw:1,0 -r 16000 -f S16_LE -c 1 /tmp/test_CX_loser.wav &
+sleep 10
+killall aplay
+killall arecord
+sleep 1
+# 观察录音效果
+amixer sset 'Speaker Function' 'headset-spk'
+aplay /tmp/test_CX_loser.wav
+
+
+
+amixer sset Master 56
+
+file="/tmp/xingkongshan.wav"
+if [ -f "$file" ] ; then
+	echo "$file found."
+else
+	cd /tmp
+	wget http://somebody.oss-cn-shenzhen.aliyuncs.com/sounds/xingkongshan.wav
+fi
+amixer sset 'Speaker Function' 'headset-spk'
+aplay /tmp/xingkongshan.wav &
+arecord -D hw:1,0 -r 16000 -f S16_LE -c 1 /tmp/test_CX_xingkongshan.wav &
+sleep 10
+killall aplay
+killall arecord
+sleep 1
+# 观察录音效果
+amixer sset 'Speaker Function' 'headset-spk'
+aplay /tmp/test_CX_xingkongshan.wav

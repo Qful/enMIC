@@ -1,0 +1,66 @@
+#!/bin/sh
+
+CXstatus=`/cx/cxdish get-mode`
+
+ret = $CXstatus
+echo ret 
+if [ret  -eq `Current tv mode = "ZSLX"`]; then
+	echo "20921 set."
+else
+	cd /cx
+	echo "20921 not set."
+fi
+
+
+ESmode=`i2cget -y 0 0x13 0x00`
+if [ $ESmode -eq 0x03 ]; then
+	echo "7243 set."
+else
+	i2cset -y 0 0x13 0x00 0x03 i
+fi
+
+
+ps |grep ./caf_thin_client | grep -v grep
+if [ $? -eq 0 ]; then 
+	echo "caf run set."
+else 
+	/cx/caf_thin_client &
+	sleep 1
+fi
+
+file="/tmp/anheqiao.wav"
+
+if [ -f "$file" ] ; then
+	echo "$file found."
+else
+
+fi
+
+
+# 播放本地音乐
+amixer sset 'Speaker Function' 'headset-spk'
+aplay /tmp/anheqiao.wav &
+sleep 30
+
+killall aplay
+killall arecord
+sleep 1
+
+# 观察录音效果
+amixer sset 'Speaker Function' 'headset-spk'
+aplay /tmp/test_CX_anheqiao.wav
+
+
+sleep 2
+file="/tmp/fade1.wav"
+
+if [ -f "$file" ] ; then
+	echo "$file found."
+else
+
+fi
+
+sleep 30
+killall aplay
+killall arecord
+sleep 1

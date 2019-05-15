@@ -1,0 +1,25 @@
+#!/bin/bash
+#
+
+arecord -D hw:1,0 -r 16000 -f S16_LE -c 1 /tmp/$1.wav &
+
+if [ $2  == "10" ]; then   
+  echo "do 10s "
+  sleep 10
+  killall arecord
+elif [ $2 == "sine" ]; then
+  	echo "do play sine"
+	amixer sset Master 80%
+	amixer sset 'Speaker Function' 'headset-spk'
+	speaker-test -f440 -tsine &
+
+elif [ $2 == "stop" ]; then
+  echo "do stop"
+  killall arecord
+  killall speaker-test
+  killall aplay
+else
+  echo "error command ."
+  rm /tmp/$1.wav 
+fi
+

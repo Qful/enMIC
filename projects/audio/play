@@ -1,0 +1,86 @@
+#!/bin/sh
+
+/cx/cxdish fw-version
+/cx/cxdish get-mode
+
+sleep 5
+
+ESmode=`i2cget -y 0 0x13 0x00`
+if [ $ESmode -eq 0x03 ]; then
+	echo "ES7243 IIC set."
+else
+	i2cset -y 0 0x13 0x00 0x01 i
+fi
+
+
+ps |grep ./caf_thin_client | grep -v grep
+if [ $? -eq 0 ]; then 
+	echo "caf run set."
+else 
+	/cx/caf_thin_client &
+	sleep 1
+fi
+
+#多重启几次看看ref还在不在
+
+file="/tmp/anheqiao.wav"
+
+if [ -f "$file" ] ; then
+	echo "$file found."
+else
+	cd /tmp
+	wget http://somebody.oss-cn-shenzhen.aliyuncs.com/sounds/anheqiao.wav 
+fi
+# CX20921录音
+arecord -D hw:1,0 -r 16000 -f S16_LE -c 1 /tmp/test_CX_anheqiao.wav &
+# 播放本地音乐
+amixer sset 'Speaker Function' 'headset-spk'
+aplay /tmp/anheqiao.wav &
+
+sleep 30
+killall aplay
+killall arecord
+sleep 1
+# 观察录音效果
+amixer sset 'Speaker Function' 'headset-spk'
+aplay /tmp/test_CX_anheqiao.wav
+
+
+file="/tmp/fade1.wav"
+if [ -f "$file" ] ; then
+	echo "$file found."
+else
+	cd /tmp
+	wget http://somebody.oss-cn-shenzhen.aliyuncs.com/sounds/fade1.wav
+fi
+
+arecord -D hw:1,0 -r 16000 -f S16_LE -c 1 /tmp/test_CX_fade1.wav &
+amixer sset 'Speaker Function' 'headset-spk'
+aplay /tmp/fade1.wav &
+
+sleep 30
+killall aplay
+killall arecord
+sleep 1
+
+# 观察录音效果
+amixer sset 'Speaker Function' 'headset-spk'
+aplay /tmp/test_CX_fade1.wav
+
+
+echo "test sine 440."
+
+# CX20921录音
+arecord -D hw:1,0 -r 16000 -f S16_LE -c 1 /tmp/test_sine_440.wav &
+
+amixer sset Master 80%
+amixer sset 'Speaker Function' 'headset-spk'
+speaker-test -f440 -tsine &
+
+sleep 10
+killall speaker-test
+killall arecord
+sleep 1
+# 观察录音效果
+amixer sset 'Speaker Function' 'headset-spk'
+aplay /tmp/test_sine_440.wav

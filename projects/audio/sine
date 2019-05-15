@@ -1,0 +1,33 @@
+#!/bin/sh
+
+ps |grep speaker-test | grep -v grep
+if [ $? -eq 0 ]; then 
+echo "test sine 440 56."
+else 
+# CX20921录音
+#arecord -D hw:1,0 -r 16000 -f S16_LE -c 1 /tmp/test_sine_440.wav &
+
+amixer sset Master 56
+amixer sset 'Speaker Function' 'headset-spk'
+speaker-test -f440 -tsine &
+echo "test set ok."
+sleep 1
+fi
+
+ESmode=`i2cget -y 0 0x13 0x00`
+if [ $ESmode -eq 0x03 ]; then
+	echo "ES7243 IIC set."
+else
+	i2cset -y 0 0x13 0x00 0x03 i
+fi
+
+
+ps |grep ./caf_thin_client | grep -v grep
+if [ $? -eq 0 ]; then 
+	echo "caf run set."
+else 
+	/cx/caf_thin_client &
+	sleep 1
+fi
+
+

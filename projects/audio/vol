@@ -1,0 +1,109 @@
+#!/bin/sh
+
+
+
+ESmode=`i2cget -y 0 0x13 0x00`
+if [ $ESmode -eq 0x03 ]; then
+	echo "ES7243 IIC set."
+else
+	i2cset -y 0 0x13 0x00 0x03 i
+fi
+
+
+ps |grep ./caf_thin_client | grep -v grep
+if [ $? -eq 0 ]; then 
+	echo "caf run set."
+else 
+	/cx/caf_thin_client &
+	sleep 1
+fi
+
+
+# CX20921录音
+amixer sset Master 55%
+
+amixer sset 'Speaker Function' 'headset-spk'
+speaker-test -f220 -tsine &
+arecord -D hw:1,0 -r 16000 -f S16_LE -c 1 /tmp/test_sound_level.wav &
+
+sleep 2
+echo "test sound level 65%."
+amixer sset Master 65%
+
+sleep 2
+echo "test sound level 75%."
+amixer sset Master 75%
+
+sleep 2
+amixer sset Master 0
+sleep 2
+
+echo "test sound level 54."
+amixer sset Master 54
+
+sleep 2
+echo "test sound level 55=87%."
+amixer sset Master 55
+
+sleep 2
+echo "test sound level 56=89%."
+amixer sset Master 56
+
+sleep 2
+amixer sset Master 0
+sleep 2
+echo "test sound level 57."
+amixer sset Master 57
+
+sleep 2
+echo "test sound level 58."
+amixer sset Master 58
+sleep 2
+echo "test sound level 59."
+amixer sset Master 59
+
+sleep 2
+amixer sset Master 0
+sleep 2
+echo "test sound level 60=95%."
+amixer sset Master 60
+sleep 2
+echo "test sound level 61."
+amixer sset Master 61
+sleep 2
+echo "test sound level 62."
+amixer sset Master 62
+
+sleep 2
+echo "test sound level 63=100%."
+amixer sset Master 63
+
+sleep 2
+echo "test sound level 50%."
+amixer sset Master 50%
+
+sleep 2
+echo "test sound level 40%."
+amixer sset Master 40%
+
+sleep 2
+echo "test sound level 30%."
+amixer sset Master 30%
+
+sleep 2
+echo "test sound level 20%."
+amixer sset Master 20%
+
+sleep 2
+echo "test sound level 10%."
+amixer sset Master 10%
+
+sleep 2
+echo "test sound level 0%."
+amixer sset Master 0
+
+sleep 2
+
+killall speaker-test
+killall arecord
+killall aplay
