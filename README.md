@@ -1,13 +1,13 @@
-﻿# [mic](https://github.com/Qful/mic) 
+﻿# [enenMIC](https://github.com/Qful/enenMIC) 
 [![sites](Qful/Qful.png)](http://www.Qful.net)
-## [Q简介](https://github.com/Qful/mic) 
+## [Q简介](https://github.com/Qful/enMIC) 
 
 麦克风拾音输入组件，包括软硬件方案，便于其他工程整个资源
 
 - [USB输入](USB/)
 
 
-### [Q资源](https://github.com/Qful/mic)
+### [Q资源](https://github.com/Qful/enMIC)
 
 - [Q系统](https://github.com/OS-Q)
 - [Q硬件](https://github.com/sochub)
